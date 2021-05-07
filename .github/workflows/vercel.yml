@@ -11,20 +11,14 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-      - name: Install and cache dependencies
-        uses: actions/checkout@v2
-      - uses: actions/cache@v1
-        with:
-          path: ~/.yarn
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+      - uses: actions/checkout@v2
+
       - name: Build Remix App
         run: |
-          yarn install
+          yarn
           yarn run build
         env:
-          REMIX_TOKEN: ${{ secrets.REMIX_TOKEN }}
+          REMIX_REGISTRY_TOKEN: ${{ secrets.REMIX_REGISTRY_TOKEN }}
 
       - name: Deploy Preview
         uses: amondnet/vercel-action@v20

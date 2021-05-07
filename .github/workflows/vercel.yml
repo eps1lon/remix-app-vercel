@@ -15,14 +15,14 @@ jobs:
         uses: actions/checkout@v2
       - uses: actions/cache@v1
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.yarn
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Build Remix App
         run: |
-          npm ci
-          npm run build
+          yarn install
+          yarn run build
         env:
           REMIX_TOKEN: ${{ secrets.REMIX_TOKEN }}
 
